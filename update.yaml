@@ -1,6 +1,7 @@
 ---
 - name: Patch and update Ubuntu machine
   hosts: all
+  become: yes
   tasks:
     - name: Update the package list
       apt:
@@ -9,8 +10,3 @@
     - name: Upgrade all packages to the latest version
       apt:
         upgrade: dist
-
-    - name: Clean up unnecessary packages
-      apt:
-        autoremove: yes
-        autoclean: yes
