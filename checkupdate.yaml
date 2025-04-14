@@ -1,0 +1,22 @@
+---
+- name: Check for pending updates on Ubuntu
+  hosts: all
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: Refresh the apt cache
+      apt:
+        update_cache: yes
+      changed_when: false
+
+    - name: Check for available package updates
+      command: apt list --upgradable
+      register: upgradable_packages
+      changed_when: false
+
+    - name: Display available updates
+      debug:
+        msg: |
+          The following packages have updates available:
+          {{ upgradable_packages.stdout }}
