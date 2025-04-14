@@ -1,0 +1,7 @@
+---
+- name: Ping a device
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Test connectivity to the device
+      ansible.builtin.ping:
