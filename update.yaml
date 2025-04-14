@@ -1,7 +1,6 @@
 ---
 - name: Patch and update Ubuntu machine
   hosts: all
-  become: yes  # Run as a privileged user (root)
   tasks:
     - name: Update the package list
       apt:
