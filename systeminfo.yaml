@@ -1,0 +1,22 @@
+---
+- name: Gather system metrics
+  hosts: all
+  gather_facts: yes
+  tasks:
+    - name: Get CPU count
+      debug:
+        var: ansible_processor_cores
+
+    - name: Get CPU utilization
+      shell: "mpstat | tail -1 | awk '{print 100 - $NF}'"
+      register: cpu_utilization
+    - name: Display CPU utilization
+      debug:
+        msg: "CPU Utilization: {{ cpu_utilization.stdout }}%"
+
+    - name: Get Memory utilization
+      shell: "free | grep Mem | awk '{print ($3/$2)*100}'"
+      register: memory_utilization
+    - name: Display Memory utilization
+      debug:
+        msg: "Memory Utilization: {{ memory_utilization.stdout }}%"
