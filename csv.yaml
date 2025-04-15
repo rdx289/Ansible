@@ -1,0 +1,30 @@
+---
+- name: Collect update information from Ubuntu devices
+  hosts: ubuntu_devices
+  gather_facts: yes
+  tasks:
+    - name: Run apt-get simulation to check for pending updates
+      # The -s flag performs a simulation of the upgrade.
+      shell: "apt-get -s upgrade"
+      register: apt_output
+      changed_when: false
+
+    - name: Extract update size from apt output
+      # This regex looks for a line like "Need to get 3,957 kB of archives.".
+      # Adjust if your apt-get output differs.
+      set_fact:
+        update_size: "{{ apt_output.stdout | regex_search('Need to get ([0-9,]+)', '\\1') | default('0') }}"
+
+    - name: Mark update pending if update_size is non-zero
+      set_fact:
+        update_pending: "{{ update_size != '0' }}"
+
+- name: Generate CSV report from gathered data
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Render CSV report using a Jinja2 template
+      template:
+        src: update_report_template.j2
+        dest: /tmp/update_report.csv
+      run_once: true
