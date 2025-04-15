@@ -1,0 +1,19 @@
+---
+- name: Check Pending Windows Updates
+  hosts: windows
+  gather_facts: yes
+  tasks:
+    - name: Search for available Windows updates (without installing)
+      win_updates:
+        state: searched
+      register: win_updates_result
+
+    - name: Display Windows update information
+      debug:
+        msg: >
+          {% if win_updates_result.updates | length > 0 %}
+            There are {{ win_updates_result.updates | length }} pending updates.
+            Details: {{ win_updates_result.updates }}
+          {% else %}
+            No pending updates were found.
+          {% endif %}
