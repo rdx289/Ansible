@@ -1,6 +1,6 @@
 ---
 - name: Check Pending Windows Updates
-  hosts: windows
+  hosts: all
   gather_facts: yes
   tasks:
     - name: Search for available Windows updates (without installing)
