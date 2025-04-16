@@ -4,18 +4,18 @@
   gather_facts: no
   ignore_unreachable: yes
   tasks:
-    - name: Check-CPU-utilization
-      command: "top -bn1 | grep 'Cpu(s)' | awk '{print $2 + $4}'"
+    - name: Check CPU utilization
+      shell: "top -bn1 | grep 'Cpu(s)' | awk '{print $2 + $4}'"
       register: cpu_utilization
       changed_when: false
 
     - name: Check Memory utilization
-      command: "free | grep Mem | awk '{print $3/$2 * 100.0}'"
+      shell: "free | grep Mem | awk '{print $3/$2 * 100.0}'"
       register: memory_utilization
       changed_when: false
 
     - name: Check Disk utilization
-      command: "df -h / | grep / | awk '{print $5}' | sed 's/%//g'"
+      shell: "df -h / | grep / | awk '{print $5}' | sed 's/%//g'"
       register: disk_utilization
       changed_when: false
 
