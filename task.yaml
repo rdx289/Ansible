@@ -1,5 +1,5 @@
 ---
-- name: Monitor system utilization and send webhook if thresholds are exceeded
+- name: Monitor system utilization
   hosts: all
   gather_facts: no
   ignore_unreachable: yes
@@ -19,5 +19,4 @@
     - name: Show Message
       debug:
         msg: "Here is the System Utilization: CPU: {{ cpu_utilization.stdout }}%, Memory: {{ memory_utilization.stdout }}%, Disk: {{ disk_utilization.stdout }}%"
-      when: cpu_utilization.stdout | float > 80 or memory_utilization.stdout | float > 80 or disk_utilization.stdout | int > 80
-      register: utilization_message
+        
