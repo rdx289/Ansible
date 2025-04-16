@@ -1,0 +1,34 @@
+---
+- name: Monitor system utilization and send webhook if thresholds are exceeded
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Check CPU utilization
+      shell: "top -bn1 | grep 'Cpu(s)' | awk '{print $2 + $4}'"
+      register: cpu_utilization
+
+    - name: Check memory utilization
+      shell: "free | grep Mem | awk '{print $3/$2 * 100.0}'"
+      register: memory_utilization
+
+    - name: Check disk utilization
+      shell: "df -h / | grep / | awk '{print $5}' | sed 's/%//g'"
+      register: disk_utilization
+
+    - name: Send webhook if any utilization exceeds 80%
+      when: 
+        - cpu_utilization.stdout | float > 80
+        - memory_utilization.stdout | float > 80
+        - disk_utilization.stdout | int > 80
+      uri:
+        url: "https://prod-12.westus.logic.azure.com:443/workflows/b1f0d40b084d44ffa04b2747541d5c8e/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=VDoLSyVfRHScodWiyl5WvrcZiWI6hjWoDpHAGyzpAkA"
+        method: POST
+        body: |
+          {
+            "alert": "High System Utilization",
+            "cpu_utilization": "{{ cpu_utilization.stdout }}%",
+            "memory_utilization": "{{ memory_utilization.stdout }}%",
+            "disk_utilization": "{{ disk_utilization.stdout }}%"
+          }
+        headers:
+          Content-Type: "application/json"
