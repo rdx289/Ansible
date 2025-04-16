@@ -4,7 +4,7 @@
   gather_facts: no
   ignore_unreachable: yes
   tasks:
-    - name: Check CPU utilization
+    - name: Check-CPU-utilization
       command: "top -bn1 | grep 'Cpu(s)' | awk '{print $2 + $4}'"
       register: cpu_utilization
       changed_when: false
@@ -18,7 +18,7 @@
       command: "df -h / | grep / | awk '{print $5}' | sed 's/%//g'"
       register: disk_utilization
       changed_when: false
-      
+
     - name: Show Message
       debug:
         msg: "Here is the System Utilization: CPU: {{ cpu_utilization.stdout.strip() }}%, Memory: {{ memory_utilization.stdout.strip() }}%, Disk: {{ disk_utilization.stdout.strip() }}%"
