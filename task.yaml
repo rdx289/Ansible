@@ -7,16 +7,18 @@
     - name: Check CPU utilization
       shell: "top -bn1 | grep 'Cpu(s)' | awk '{print $2 + $4}'"
       register: cpu_utilization
+      changed_when: false
 
-    - name: Check memory utilization
       shell: "free | grep Mem | awk '{print $3/$2 * 100.0}'"
       register: memory_utilization
-
-    - name: Check disk utilization
+      changed_when: false
+      register: memory_utilization
       shell: "df -h / | grep / | awk '{print $5}' | sed 's/%//g'"
       register: disk_utilization
-
+      changed_when: false
+      shell: "df -h / | grep / | awk '{print $5}' | sed 's/%//g'"
+      register: disk_utilization
+      msg: "Here is the System Utilization: CPU: {{ cpu_utilization.stdout.strip() }}%, Memory: {{ memory_utilization.stdout.strip() }}%, Disk: {{ disk_utilization.stdout.strip() }}%"
     - name: Show Message
       debug:
         msg: "Here is the System Utilization: CPU: {{ cpu_utilization.stdout }}%, Memory: {{ memory_utilization.stdout }}%, Disk: {{ disk_utilization.stdout }}%"
-        
