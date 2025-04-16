@@ -2,6 +2,7 @@
 - name: Monitor system utilization and send webhook if thresholds are exceeded
   hosts: all
   gather_facts: no
+  ignore_unreachable: yes
   tasks:
     - name: Check CPU utilization
       shell: "top -bn1 | grep 'Cpu(s)' | awk '{print $2 + $4}'"
