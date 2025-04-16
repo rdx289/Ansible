@@ -27,12 +27,11 @@
       uri:
         url: "https://prod-12.westus.logic.azure.com:443/workflows/b1f0d40b084d44ffa04b2747541d5c8e/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=VDoLSyVfRHScodWiyl5WvrcZiWI6hjWoDpHAGyzpAkA"
         method: POST
-        body: |
-          {
-            "alert": "High System Utilization",
-            "cpu_utilization": "{{ cpu_utilization.stdout }}%",
-            "memory_utilization": "{{ memory_utilization.stdout }}%",
-            "disk_utilization": "{{ disk_utilization.stdout }}%"
-          }
+        body_format: json
+        body:
+          alert: "High System Utilization"
+          cpu_utilization: "{{ cpu_utilization.stdout }}%"
+          memory_utilization: "{{ memory_utilization.stdout }}%"
+          disk_utilization: "{{ disk_utilization.stdout }}%"
         headers:
           Content-Type: "application/json"
