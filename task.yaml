@@ -15,11 +15,15 @@
       shell: "df -h / | grep / | awk '{print $5}' | sed 's/%//g'"
       register: disk_utilization
 
-    - name: Send webhook if any utilization exceeds 80%
-      when: 
-        - cpu_utilization.stdout | float > 50
-        - memory_utilization.stdout | float > 50
-        - disk_utilization.stdout | int > 50
+    - name: Show Message
+      debug:
+        msg: "Here is the System Utilization: CPU: {{ cpu_utilization.stdout }}%, Memory: {{ memory_utilization.stdout }}%, Disk: {{ disk_utilization.stdout }}%"
+
+    - name: Send webhook if any utilization exceeds 50%
+      when: >
+        (cpu_utilization.stdout | float > 50) or 
+        (memory_utilization.stdout | float > 50) or 
+        (disk_utilization.stdout | int > 50)
       uri:
         url: "https://prod-12.westus.logic.azure.com:443/workflows/b1f0d40b084d44ffa04b2747541d5c8e/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=VDoLSyVfRHScodWiyl5WvrcZiWI6hjWoDpHAGyzpAkA"
         method: POST
@@ -32,10 +36,3 @@
           }
         headers:
           Content-Type: "application/json"
-        status_code: 200
-
-    - name: Show Message
-      debug:
-        msg: "Here is the System Utilization: CPU: {{ cpu_utilization.stdout }}%, Memory: {{ memory_utilization.stdout }}%, Disk: {{ disk_utilization.stdout }}%"
-
-    
