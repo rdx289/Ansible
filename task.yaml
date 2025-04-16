@@ -32,3 +32,10 @@
           }
         headers:
           Content-Type: "application/json"
+        status_code: 200
+
+    - name: Show Message
+      debug:
+        msg: "Here is the System Utilization: CPU: {{ cpu_utilization.stdout }}%, Memory: {{ memory_utilization.stdout }}%, Disk: {{ disk_utilization.stdout }}%"
+
+    
