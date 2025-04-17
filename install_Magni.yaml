@@ -1,0 +1,38 @@
+---
+- name: Install Mageni Vulnerability Scanner
+  hosts: all
+  become: yes
+  ignore_unreachable: yes
+  tasks:
+    - name: Update apt cache and install prerequisites
+      apt:
+        name:
+          - git
+          - cmake
+          - build-essential
+          - libssl-dev
+          - libffi-dev
+          - python3-dev
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Clone Mageni repository
+      git:
+        repo: "https://github.com/mageni/mageni.git"
+        dest: /opt/mageni
+        version: master
+        force: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Make install.sh executable
+      file:
+        path: /opt/mageni/install.sh
+        mode: '0755'
+      when: ansible_os_family == "Debian"
+
+    - name: Run Mageni installation script
+      command: /opt/mageni/install.sh
+      args:
+        chdir: /opt/mageni
+      when: ansible_os_family == "Debian"
