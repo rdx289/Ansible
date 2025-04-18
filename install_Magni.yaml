@@ -1,7 +1,6 @@
 ---
 - name: Install Mageni Vulnerability Scanner
   hosts: all
-  become: yes
   ignore_unreachable: yes
   tasks:
     - name: Update apt cache and install prerequisites
