@@ -1,22 +1,18 @@
 ---
 - name: Check for pending updates on Ubuntu
   hosts: all
-  become: yes
   gather_facts: yes
-
   tasks:
-    - name: Refresh the apt cache
-      apt:
-        update_cache: yes
+    - name: Check for pending updates
+      command: sudo apt list --upgradable
+      register: update_output
       changed_when: false
 
-    - name: Check for available package updates
-      command: apt list --upgradable
-      register: upgradable_packages
-      changed_when: false
-
-    - name: Display available updates
-      debug:
-        msg: |
-          The following packages have updates available:
-          {{ upgradable_packages.stdout }}
+    - name: Save update information to CSV
+      copy:
+        dest: /tmp/updates.csv
+        content: |
+          {% for line in update_output.stdout_lines %}
+          {{ line }}
+          {% endfor %}
+      when: update_output.stdout_lines | length > 0

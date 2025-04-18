@@ -1,12 +1,21 @@
 ---
-- name: Patch and update Ubuntu machine
+- name: Save data into CSV
   hosts: all
   become: yes
+  gather_facts: no
   tasks:
-    - name: Update the package list
-      apt:
-        update_cache: yes
+    - name: Define data to save
+      set_fact:
+        csv_data:
+          - ["Name", "Age", "City"]
+          - ["Alice", "30", "New York"]
+          - ["Bob", "25", "Los Angeles"]
+          - ["Charlie", "35", "Chicago"]
 
-    - name: Upgrade all packages to the latest version
-      apt:
-        upgrade: dist
+    - name: Write data to CSV file
+      copy:
+        dest: /tmp/output.csv
+        content: |
+          {% for row in csv_data %}
+          {{ row | join(',') }}
+          {% endfor %}
