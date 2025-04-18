@@ -8,11 +8,7 @@
       register: update_output
       changed_when: false
 
-    - name: Save update information to CSV
-      copy:
-        dest: /tmp/updates.csv
-        content: |
-          {% for line in update_output.stdout_lines %}
-          {{ line }}
-          {% endfor %}
+    - name: Show update information
+      debug:
+        msg: "Pending updates:\n{{ update_output.stdout_lines | join('\n') }}"
       when: update_output.stdout_lines | length > 0
