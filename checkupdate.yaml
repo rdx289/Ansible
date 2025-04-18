@@ -4,7 +4,7 @@
   gather_facts: yes
   tasks:
     - name: Check for pending updates
-      command: sudo apt list --upgradable
+      command: apt list --upgradable
       register: update_output
       changed_when: false
 
