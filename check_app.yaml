@@ -7,12 +7,3 @@
       command: "which {{ required_app }}"
       register: app_check
       ignore_errors: yes
-
-    - name: Print status
-      debug:
-        msg: >
-          {% if app_check.rc == 0 %}
-          {{ required_app }} is installed: true
-          {% else %}
-          {{ required_app }} is installed: false
-          {% endif %}
