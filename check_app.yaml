@@ -2,14 +2,8 @@
 - name: Validate and Install Required Application
   hosts: all
   gather_facts: no
+  ignore_errors: no
   tasks:
     - name: Check if {{ required_app }} is installed
       command: "which {{ required_app }}"
       register: app_check
-      ignore_errors: not
-    
-    - name: Install {{ required_app }} if not present
-      package:
-        name: "{{ required_app }}"
-        state: present
-      when: app_check.rc != 1
