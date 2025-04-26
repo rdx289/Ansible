@@ -2,8 +2,6 @@
 - name: Ensure the required app is installed
   hosts: localhost
   gather_facts: yes
-  vars:
-    required_app: "curl"  # Change this to the app you want to install
 
   tasks:
     - name: Install {{ required_app }} if not present
