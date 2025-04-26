@@ -6,4 +6,5 @@
     - name: Check if {{ required_app }} is installed
       command: "which {{ required_app }}"
       register: app_check
-      ignore_errors: yes
+      ignore_errors: no
+      failed_when: app_check.rc == 1
