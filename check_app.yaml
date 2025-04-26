@@ -12,4 +12,4 @@
       package:
         name: "{{ required_app }}"
         state: present
-      when: app_check.rc != 0
+      when: app_check.rc != 1
