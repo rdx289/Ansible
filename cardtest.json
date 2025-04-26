@@ -1,0 +1,66 @@
+{
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.4",
+    "type": "AdaptiveCard",
+    "body": [
+        {
+            "type": "TextBlock",
+            "size": "Medium",
+            "weight": "Bolder",
+            "text": "Job Summary: Gather-fact"
+        },
+        {
+            "type": "TextBlock",
+            "text": "Created by: admin",
+            "wrap": true
+        },
+        {
+            "type": "TextBlock",
+            "text": "Status: Successful",
+            "color": "Good",
+            "wrap": true
+        },
+        {
+            "type": "TextBlock",
+            "text": "Started: 2025-04-26T17:40:39.655165+00:00",
+            "wrap": true
+        },
+        {
+            "type": "TextBlock",
+            "text": "Finished: 2025-04-26T17:40:44.427580+00:00",
+            "wrap": true
+        },
+        {
+            "type": "TextBlock",
+            "text": "Project: Linux-Git-Repo",
+            "wrap": true
+        },
+        {
+            "type": "TextBlock",
+            "text": "Playbook: systeminfo.yaml",
+            "wrap": true
+        },
+        {
+            "type": "TextBlock",
+            "text": "Inventory: Linux Prod Servers",
+            "wrap": true
+        },
+        {
+            "type": "TextBlock",
+            "text": "Credential: Linux-Host",
+            "wrap": true
+        },
+        {
+            "type": "TextBlock",
+            "text": "Host 172.25.79.93 - OK: 6, Changed: 2, Failed: 0, Skipped: 0",
+            "wrap": true
+        }
+    ],
+    "actions": [
+        {
+            "type": "Action.OpenUrl",
+            "title": "View Job Details",
+            "url": "https://towerhost/#/jobs/playbook/9"
+        }
+    ]
+}

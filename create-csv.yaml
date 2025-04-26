@@ -1,0 +1,24 @@
+---
+- name: Gather Facts and Save to CSV
+  hosts: all
+  gather_facts: yes
+
+  tasks:
+    - name: Create CSV Header
+      ansible.builtin.copy:
+        dest: /tmp/system_facts.csv
+        content: "Host,OS,Kernel,CPU Cores,Memory (MB)\n"
+        mode: '0644'
+
+    - name: Append System Facts to CSV
+      ansible.builtin.lineinfile:
+        path: /tmp/system_facts.csv
+        line: "{{ inventory_hostname }},{{ ansible_distribution }},{{ ansible_kernel }},{{ ansible_processor_cores }},{{ ansible_memtotal_mb }}"
+        create: yes
+        mode: '0644'
+
+    - name: Fetch CSV File to Control Node
+      ansible.builtin.fetch:
+        src: /tmp/system_facts.csv
+        dest: ./gathered_facts.csv
+        flat: yes
