@@ -4,8 +4,15 @@
   gather_facts: no
 
   tasks:
+    - name: Check if {{ required_app }} is installed
+      command: "which {{ required_app }}"
+      register: app_check
+      ignore_errors: yes
+      changed_when: false
+      tags: check_app
+
     - name: Install {{ required_app }} if not present
       package:
         name: "{{ required_app }}"
         state: present
-      when: app_check.rc != 0
+      when: app_check is defined and app_check.rc != 0
