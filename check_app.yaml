@@ -7,3 +7,9 @@
       command: "which {{ required_app }}"
       register: app_check
       ignore_errors: not
+    
+    - name: Install {{ required_app }} if not present
+      package:
+        name: "{{ required_app }}"
+        state: present
+      when: app_check.rc != 0
