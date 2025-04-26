@@ -2,9 +2,6 @@
 - name: Check if the required app is installed
   hosts: localhost
   gather_facts: no
-  vars:
-    required_app: "curl"
-
   tasks:
     - name: Check if {{ required_app }} is installed
       command: "which {{ required_app }}"
