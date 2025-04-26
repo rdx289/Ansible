@@ -1,6 +1,6 @@
 ---
 - name: Check if the required app is installed
-  hosts: localhost
+  hosts: all
   gather_facts: no
   tasks:
     - name: Check if {{ required_app }} is installed
