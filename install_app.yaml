@@ -1,7 +1,7 @@
 ---
 - name: Ensure the required app is installed
-  hosts: localhost
-  gather_facts: yes
+  hosts: all
+  gather_facts: no
 
   tasks:
     - name: Install {{ required_app }} if not present
