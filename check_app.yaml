@@ -1,0 +1,21 @@
+---
+- name: Check if the required app is installed
+  hosts: localhost
+  gather_facts: no
+  vars:
+    required_app: "curl"
+
+  tasks:
+    - name: Check if {{ required_app }} is installed
+      command: "which {{ required_app }}"
+      register: app_check
+      ignore_errors: yes
+
+    - name: Print status
+      debug:
+        msg: >
+          {% if app_check.rc == 0 %}
+          {{ required_app }} is installed: true
+          {% else %}
+          {{ required_app }} is installed: false
+          {% endif %}
