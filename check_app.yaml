@@ -7,3 +7,7 @@
     - name: Check if {{ required_app }} is installed
       command: "which {{ required_app }}"
       register: app_check
+
+    - name: Display the result of the app check
+      debug:
+        msg: "The command 'which {{ required_app }}' returned: {{ app_check.stdout }}"
