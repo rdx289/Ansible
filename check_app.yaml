@@ -10,4 +10,5 @@
 
     - name: Display the result of the app check
       debug:
-        msg: "The command 'which {{ required_app }}' returned: {{ app_check.stdout }}"
+        msg: " {{ app_check.stdout }} "
+      when: app_check is defined and app_check.stdout != ""
