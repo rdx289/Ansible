@@ -1,5 +1,5 @@
 - name: Get Registered Apps from Microsoft Entra ID
-  hosts: "*"
+  hosts: "localhost"
   gather_facts: no
   vars:
     tenant_id: "5a60d899-28b4-48b9-a5a9-eec8372021de"
