@@ -4,63 +4,83 @@
     "type": "AdaptiveCard",
     "body": [
         {
-            "type": "TextBlock",
-            "size": "Medium",
-            "weight": "Bolder",
-            "text": "Job Summary: Gather-fact"
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "IntunePassword",
+                    "weight": "Bolder",
+                    "color": "Attention",
+                    "size": "ExtraLarge",
+                    "horizontalAlignment": "Center",
+                    "spacing": "Large"
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "⚠️ The following application has expired. Please take immediate action.",
+                    "wrap": true,
+                    "size": "Medium",
+                    "color": "Good",
+                    "weight": "Bolder",
+                    "horizontalAlignment": "Center"
+                }
+            ],
+            "style": "default",
+            "backgroundImage": {
+                "url": "https://techaccess.co.za/wp-content/uploads/2021/12/Black-Technology-LinkedIn-Banner-9.jpg",
+                "fillMode": "Cover"
+            }
         },
         {
-            "type": "TextBlock",
-            "text": "Created by: admin",
-            "wrap": true
-        },
-        {
-            "type": "TextBlock",
-            "text": "Status: Successful",
-            "color": "Good",
-            "wrap": true
-        },
-        {
-            "type": "TextBlock",
-            "text": "Started: 2025-04-26T17:40:39.655165+00:00",
-            "wrap": true
-        },
-        {
-            "type": "TextBlock",
-            "text": "Finished: 2025-04-26T17:40:44.427580+00:00",
-            "wrap": true
-        },
-        {
-            "type": "TextBlock",
-            "text": "Project: Linux-Git-Repo",
-            "wrap": true
-        },
-        {
-            "type": "TextBlock",
-            "text": "Playbook: systeminfo.yaml",
-            "wrap": true
-        },
-        {
-            "type": "TextBlock",
-            "text": "Inventory: Linux Prod Servers",
-            "wrap": true
-        },
-        {
-            "type": "TextBlock",
-            "text": "Credential: Linux-Host",
-            "wrap": true
-        },
-        {
-            "type": "TextBlock",
-            "text": "Host 172.25.79.93 - OK: 6, Changed: 2, Failed: 0, Skipped: 0",
-            "wrap": true
+            "type": "Container",
+            "items": [
+                {
+                    "type": "FactSet",
+                    "facts": [
+                        {
+                            "title": "ID:",
+                            "value": "20cdf7c7-80e8-4848-8e15-b7e39e3f61ad"
+                        },
+                        {
+                            "title": "App Name:",
+                            "value": "IntunePassword"
+                        },
+                        {
+                            "title": "Publisher Domain:",
+                            "value": "ansari.linkpc.net"
+                        },
+                        {
+                            "title": "Created Date:",
+                            "value": "02-03-2024"
+                        },
+                        {
+                            "title": "App ID:",
+                            "value": "841a726e-f777-4178-a6fd-be3ab50f0624"
+                        },
+                        {
+                            "title": "Expiry Date:",
+                            "value": "30-03-2025"
+                        },
+                        {
+                            "title": "Days Until Expiry:",
+                            "value": "-38 (Expired)"
+                        }
+                    ]
+                }
+            ],
+            "style": "default"
         }
     ],
     "actions": [
         {
             "type": "Action.OpenUrl",
-            "title": "View Job Details",
-            "url": "https://towerhost/#/jobs/playbook/9"
+            "title": "Resolve Issue",
+            "url": "https://portal.azure.com/",
+            "style": "positive"
         }
-    ]
+    ],
+    "backgroundImage": {
+        "url": "https://example.com/background-image.jpg",
+        "fillMode": "Cover"
+    }
 }
