@@ -1,0 +1,37 @@
+- name: Get Registered Apps from Microsoft Entra ID
+  hosts: "*"
+  gather_facts: no
+  vars:
+    tenant_id: "5a60d899-28b4-48b9-a5a9-eec8372021de"
+    client_id: "dbd56c67-fb60-4c76-a4d9-48ed52474172"
+    client_secret: "VUv8Q~zU2E-8.BWVhxcMqASbcLFUVj9FZc6Beb5Y"
+    graph_url: "https://graph.microsoft.com/v1.0/applications"
+
+  tasks:
+    - name: Get Access Token
+      uri:
+        url: "https://login.microsoftonline.com/{{ tenant_id }}/oauth2/v2.0/token"
+        method: POST
+        body:
+          grant_type: "client_credentials"
+          client_id: "{{ client_id }}"
+          client_secret: "{{ client_secret }}"
+          scope: "https://graph.microsoft.com/.default"
+        headers:
+          Content-Type: "application/x-www-form-urlencoded"
+        return_content: yes
+      register: token_response
+
+    - name: Fetch App Registration Details
+      uri:
+        url: "{{ graph_url }}"
+        method: GET
+        headers:
+          Authorization: "Bearer {{ token_response.json.access_token }}"
+          Content-Type: "application/json"
+        return_content: yes
+      register: app_data
+
+    - name: Show App Details
+      debug:
+        msg: "{{ app_data.json.value | json_query('[].{Name: displayName, ApplicationID: appId, CreatedDate: createdDateTime, ExpiryDate: passwordCredentials[].endDateTime}') }}"
