@@ -1,9 +1,9 @@
 # Description: This script retrieves registered applications from Microsoft Graph API and checks their password expiry dates.
 # It sends a notification via a webhook if the password is set to expire within 91 days.
 
-$tenantId = "5a60d899-28b4-48b9-a5a9-eec8372021de"
-$clientId = "dbd56c67-fb60-4c76-a4d9-48ed52474172"
-$clientSecret = "VUv8Q~zU2E-8.BWVhxcMqASbcLFUVj9FZc6Beb5Y"
+$tenantId = ""
+$clientId = ""
+$clientSecret = ""
 
 # Main script
 $body = @{
