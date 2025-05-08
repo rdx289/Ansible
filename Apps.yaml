@@ -2,9 +2,9 @@
   hosts: "localhost"
   gather_facts: no
   vars:
-    tenant_id: "5a60d899-28b4-48b9-a5a9-eec8372021de"
-    client_id: "dbd56c67-fb60-4c76-a4d9-48ed52474172"
-    client_secret: "VUv8Q~zU2E-8.BWVhxcMqASbcLFUVj9FZc6Beb5Y"
+    tenant_id: ""
+    client_id: ""
+    client_secret: ""
     graph_url: "https://graph.microsoft.com/v1.0/applications"
 
   tasks:
